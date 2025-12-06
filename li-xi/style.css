@@ -1,0 +1,77 @@
+body {
+    background-image: radial-gradient(#ffcdd2 10%, transparent 10%),
+    radial-gradient(#ffcdd2 10%, transparent 10%);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    overscroll-behavior: none; 
+}
+
+.wheel-container {
+  position: relative;
+  width: 85vw; 
+  max-width: 350px; 
+  aspect-ratio: 1 / 1; 
+  height: auto; 
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+  margin: 0 auto;
+}
+
+.pointer {
+  position: absolute;
+  top: -8%; 
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14%;
+  height: 18%;
+  background: #d32f2f;
+  clip-path: polygon(100% 0, 50% 100%, 0 0);
+  z-index: 20;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
+}
+
+.wheel {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 8px solid #fbc02d;
+  position: relative;
+  overflow: hidden;
+  transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+  background: white;
+}
+
+.segment {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  transform-origin: 100% 100%;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.segment span {
+  position: absolute;
+  left: 30%;
+  top: 20%;
+  transform: rotate(45deg);
+  color: white;
+  font-weight: bold;
+  font-size: clamp(14px, 5vw, 22px); 
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  white-space: nowrap;
+}
+
+.segment:nth-child(1) { background-color: #e53935; transform: rotate(0deg) skewY(-30deg); }
+.segment:nth-child(2) { background-color: #fb8c00; transform: rotate(60deg) skewY(-30deg); }
+.segment:nth-child(3) { background-color: #43a047; transform: rotate(120deg) skewY(-30deg); }
+.segment:nth-child(4) { background-color: #1e88e5; transform: rotate(180deg) skewY(-30deg); }
+.segment:nth-child(5) { background-color: #8e24aa; transform: rotate(240deg) skewY(-30deg); }
+.segment:nth-child(6) { background-color: #fdd835; transform: rotate(300deg) skewY(-30deg); }
+.segment:nth-child(6) span { color: #d32f2f; }
+
+@keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
