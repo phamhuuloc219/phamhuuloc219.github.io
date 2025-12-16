@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pham Huu Loc</title>
+    <meta name="description" content="Pham Huu Loc - .NET Developer" />
+    <meta name="keywords" content="Pham Huu Loc, PHL, .NET, ASP.NET" />
+    <meta name="author" content="Admin" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://raw.githubusercontent.com/phamhuuloc219/phamhuuloc219.github.io/refs/heads/main/images/phl.png"
+    />
+
+    <link
+      rel="apple-touch-icon"
+      href="https://raw.githubusercontent.com/phamhuuloc219/phamhuuloc219.github.io/refs/heads/main/images/phl.png"
+    />
+
+    <meta name="theme-color" content="#d32f2f" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Pham Huu Loc" />
+    <meta property="og:description" content="Pham Huu Loc" />
+    <meta
+      property="og:image"
+      content="https://raw.githubusercontent.com/phamhuuloc219/phamhuuloc219.github.io/refs/heads/main/images/phl.png"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="bg-slate-100 min-h-screen font-sans text-slate-800 p-4">
+
+    <div class="max-w-[1400px] mx-auto bg-white p-6 rounded-xl shadow-lg">
+        <h1 class="text-2xl font-bold text-center text-slate-700 mb-6">Text Compare!</h1>
+
+        <div class="flex flex-col md:flex-row gap-4 items-center mb-6 h-[500px]">
+            
+            <div class="flex-1 w-full h-full flex flex-col">
+                <label class="font-semibold text-slate-600 mb-2">Original Text</label>
+                <textarea id="originalText" 
+                    class="w-full h-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-inner resize-none bg-slate-50 text-sm font-mono"
+                    placeholder="Paste one version of a text here."></textarea>
+            </div>
+
+            <div class="shrink-0 z-10">
+                <button id="compareBtn" 
+                    class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-lg transition transform hover:scale-110 flex items-center justify-center focus:outline-none"
+                    title="Compare">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-8 md:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="flex-1 w-full h-full flex flex-col">
+                <label class="font-semibold text-slate-600 mb-2">New Text</label>
+                <textarea id="newText" 
+                    class="w-full h-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-inner resize-none bg-slate-50 text-sm font-mono"
+                    placeholder="Paste another version of a text here."></textarea>
+            </div>
+        </div>
+
+        <div id="resultContainer" class="hidden">
+            
+            <div class="border-t border-slate-200 my-6"></div>
+
+            <div id="noChangeMsg" class="hidden">
+                <div class="bg-green-100 border border-green-400 text-green-800 px-4 py-3 rounded relative text-center font-bold">
+                    <span class="block sm:inline">The two texts are identical!</span>
+                </div>
+            </div>
+
+            <div id="diffOutput" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <div class="bg-red-50 p-4 rounded-lg border border-red-200">
+                    <h3 class="text-md font-bold text-red-700 mb-2 border-b border-red-200 pb-2">Original</h3>
+                    <div id="outputOriginal" class="whitespace-pre-wrap text-sm font-mono text-slate-700 break-words"></div>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                    <h3 class="text-md font-bold text-green-700 mb-2 border-b border-green-200 pb-2">New Version</h3>
+                    <div id="outputNew" class="whitespace-pre-wrap text-sm font-mono text-slate-700 break-words"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.1.0/diff.min.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>
