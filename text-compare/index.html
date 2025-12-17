@@ -36,6 +36,10 @@
     />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./styles.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-html.min.js"></script>
 </head>
 <body class="bg-slate-100 min-h-screen font-sans text-slate-800 p-4">
 
@@ -45,13 +49,18 @@
         <div class="flex flex-col md:flex-row gap-4 items-center mb-6 h-[500px]">
             
             <div class="flex-1 w-full h-full flex flex-col">
-                <label class="font-semibold text-slate-600 mb-2">Original Text</label>
-                <textarea id="originalText" 
-                    class="w-full h-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-inner resize-none bg-slate-50 text-sm font-mono"
-                    placeholder="Paste one version of a text here."></textarea>
+                <div class="flex justify-between items-end mb-2">
+                    <label class="font-semibold text-slate-600">Original Text</label>
+                    <div class="flex gap-1">
+                        <button id="btnFormatJson" class="text-xs bg-yellow-100 hover:bg-yellow-200 text-yellow-800 border border-yellow-300 px-2 py-1 rounded transition">Format JSON</button>
+                        <button id="btnFormatHtml" class="text-xs bg-orange-100 hover:bg-orange-200 text-orange-800 border border-orange-300 px-2 py-1 rounded transition">Format HTML</button>
+                        <button id="btnFormatJs" class="text-xs bg-blue-100 hover:bg-blue-200 text-blue-800 border border-blue-300 px-2 py-1 rounded transition">Format JS</button>
+                    </div>
+                </div>
+                <textarea id="originalText" class="w-full h-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-inner resize-none bg-slate-50 text-sm font-mono" placeholder="Paste one version of a text here."></textarea>
             </div>
 
-            <div class="shrink-0 z-10">
+            <div class="shrink-0 z-10 pt-8">
                 <button id="compareBtn" 
                     class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-lg transition transform hover:scale-110 flex items-center justify-center focus:outline-none"
                     title="Compare">
@@ -62,39 +71,53 @@
             </div>
 
             <div class="flex-1 w-full h-full flex flex-col">
-                <label class="font-semibold text-slate-600 mb-2">New Text</label>
-                <textarea id="newText" 
-                    class="w-full h-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-inner resize-none bg-slate-50 text-sm font-mono"
-                    placeholder="Paste another version of a text here."></textarea>
+                <div class="flex justify-between items-end mb-2">
+                    <label class="font-semibold text-slate-600">New Text</label>
+                    
+                    <button id="clearBtn" class="flex items-center gap-1 text-xs bg-red-100 hover:bg-red-200 text-red-800 border border-red-300 px-2 py-1 rounded transition" title="Clear All Text">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        Clear All
+                    </button>
+                </div>
+                <textarea id="newText" class="w-full h-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-inner resize-none bg-slate-50 text-sm font-mono" placeholder="Paste another version of a text here."></textarea>
             </div>
         </div>
 
         <div id="resultContainer" class="hidden">
-            
             <div class="border-t border-slate-200 my-6"></div>
-
             <div id="noChangeMsg" class="hidden">
                 <div class="bg-green-100 border border-green-400 text-green-800 px-4 py-3 rounded relative text-center font-bold">
                     <span class="block sm:inline">The two texts are identical!</span>
                 </div>
             </div>
-
             <div id="diffOutput" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4">
-                
                 <div class="bg-red-50 p-4 rounded-lg border border-red-200">
                     <h3 class="text-md font-bold text-red-700 mb-2 border-b border-red-200 pb-2">Original</h3>
                     <div id="outputOriginal" class="whitespace-pre-wrap text-sm font-mono text-slate-700 break-words"></div>
                 </div>
-
                 <div class="bg-green-50 p-4 rounded-lg border border-green-200">
                     <h3 class="text-md font-bold text-green-700 mb-2 border-b border-green-200 pb-2">New Version</h3>
                     <div id="outputNew" class="whitespace-pre-wrap text-sm font-mono text-slate-700 break-words"></div>
                 </div>
             </div>
-
+        </div>
+    </div>
+    
+    <div id="errorModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-lg shadow-2xl w-11/12 max-w-md transform transition-all scale-100">
+            <div class="flex items-center justify-between p-4 border-b border-gray-200">
+                <h3 class="text-lg font-bold text-red-600 flex items-center">Error</h3>
+                <button id="closeModalIcon" class="text-gray-400 hover:text-gray-600 focus:outline-none">X</button>
+            </div>
+            <div class="p-6"><p id="errorMessage" class="text-gray-700 text-sm font-mono bg-red-50 p-3 rounded border border-red-100 whitespace-pre-wrap break-words"></p></div>
+            <div class="p-4 border-t border-gray-200 text-right"><button id="closeModalBtn" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded font-semibold transition">Close</button></div>
         </div>
     </div>
 
+    <footer class="max-w-5xl mx-auto px-6 py-8 text-center text-sm text-slate-500">© <span id="year"></span> Designed by <a href="https://phamhuuloc219.github.io" target="_blank" class="font-bold hover:text-white transition-colors underline decoration-sky-400 underline-offset-2">PHL</a>.</footer>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.1.0/diff.min.js"></script>
     <script src="./script.js"></script>
 </body>

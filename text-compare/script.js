@@ -1,6 +1,80 @@
+const errorModal = document.getElementById('errorModal');
+const errorMessage = document.getElementById('errorMessage');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const closeModalIcon = document.getElementById('closeModalIcon');
+
+function showError(msg) {
+    errorMessage.textContent = msg;
+    errorModal.classList.remove('hidden');
+}
+
+function hideError() {
+    errorModal.classList.add('hidden');
+}
+
+closeModalBtn.addEventListener('click', hideError);
+closeModalIcon.addEventListener('click', hideError);
+
+errorModal.addEventListener('click', (e) => {
+    if (e.target === errorModal) {
+        hideError();
+    }
+});
+
+const originalTextArea = document.getElementById('originalText');
+const newTextArea = document.getElementById('newText');
+
+document.getElementById('btnFormatJson').addEventListener('click', () => {
+    const content = originalTextArea.value.trim();
+    if (!content) return;
+    try {
+        const parsed = JSON.parse(content);
+        originalTextArea.value = JSON.stringify(parsed, null, 4); 
+    } catch (e) {
+        showError("Cannot format JSON!\n\nError details:\n" + e.message);
+    }
+});
+
+document.getElementById('btnFormatHtml').addEventListener('click', () => {
+    const content = originalTextArea.value;
+    if (!content) return;
+    originalTextArea.value = html_beautify(content, { 
+        indent_size: 4,
+        wrap_line_length: 80
+    });
+});
+
+document.getElementById('btnFormatJs').addEventListener('click', () => {
+    const content = originalTextArea.value;
+    if (!content) return;
+    originalTextArea.value = js_beautify(content, { 
+        indent_size: 4,
+        space_in_empty_paren: true
+    });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+    originalTextArea.value = '';
+    newTextArea.value = '';
+
+    const resultContainer = document.getElementById('resultContainer');
+    const noChangeMsg = document.getElementById('noChangeMsg');
+    const diffOutput = document.getElementById('diffOutput');
+    const outputOriginal = document.getElementById('outputOriginal');
+    const outputNew = document.getElementById('outputNew');
+
+    resultContainer.classList.add('hidden');
+    noChangeMsg.classList.add('hidden');
+    diffOutput.classList.add('hidden');
+    diffOutput.classList.remove('grid');
+    
+    outputOriginal.innerHTML = '';
+    outputNew.innerHTML = '';
+});
+
 document.getElementById('compareBtn').addEventListener('click', function() {
-    const originalText = document.getElementById('originalText').value;
-    const newText = document.getElementById('newText').value;
+    const originalText = originalTextArea.value;
+    const newText = newTextArea.value;
     
     const resultContainer = document.getElementById('resultContainer');
     const noChangeMsg = document.getElementById('noChangeMsg');
@@ -31,7 +105,6 @@ document.getElementById('compareBtn').addEventListener('click', function() {
 
     diff.forEach((part) => {
         const removedClass = "bg-red-300 text-red-900 line-through decoration-red-900 px-1 rounded mx-0.5";
-        
         const addedClass = "bg-green-300 text-green-900 font-bold px-1 rounded mx-0.5";
 
         if (!part.added) {
