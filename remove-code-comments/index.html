@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     
-    <title>Text Compare - Pham Huu Loc</title>
+    <title>Remove Code Comments - Pham Huu Loc</title>
     <meta name="description" content="Pham Huu Loc - .NET Developer" />
     <meta name="keywords" content="Pham Huu Loc, PHL, .NET, ASP.NET" />
     <meta name="author" content="Pham Huu Loc" />
@@ -43,10 +43,6 @@
     </script>
     
     <link rel="stylesheet" href="./styles.css">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-css.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-html.min.js"></script>
 </head>
 <body class="bg-slate-100 min-h-screen font-sans text-slate-800 flex flex-col">
   
@@ -76,7 +72,9 @@
           <div class="absolute right-0 top-full pt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
             <div class="bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden py-1">
               <a href="/text-compare" class="flex items-center gap-2 px-4 py-2 text-slate-700 hover:bg-red-50 hover:text-tet-red transition">
-                <svg fill="#000000" width="14px" height="14px" viewBox="0 0 0.42 0.42" xmlns="http://www.w3.org/2000/svg"><path d="M0.018 0.14A0.018 0.018 0 0 1 0.035 0.123h0.133L0.128 0.082A0.018 0.018 0 1 1 0.152 0.058l0.07 0.07a0.018 0.018 0 0 1 0 0.025l-0.07 0.07A0.018 0.018 0 1 1 0.128 0.198L0.168 0.158H0.035A0.018 0.018 0 0 1 0.018 0.14M0.385 0.263H0.252L0.292 0.222A0.018 0.018 0 0 0 0.268 0.198l-0.07 0.07a0.018 0.018 0 0 0 0 0.025l0.07 0.07A0.018 0.018 0 0 0 0.292 0.338L0.252 0.298H0.385a0.018 0.018 0 0 0 0 -0.035"/></svg>
+                <svg width="16px" height="16px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12.25 5.25a0.833 0.833 0 0 0 0 1.167l1.333 1.333a0.833 0.833 0 0 0 1.167 0l3.142 -3.142a5 5 0 0 1 -6.617 6.617l-5.758 5.758a1.767 1.767 0 0 1 -2.5 -2.5l5.758 -5.758a5 5 0 0 1 6.617 -6.617l-3.133 3.133z"/>
+                </svg>
                 Text Compare
               </a>
               <a href="/remove-code-comments" class="flex items-center gap-2 px-4 py-2 text-slate-700 hover:bg-red-50 hover:text-tet-red transition">
@@ -125,62 +123,44 @@
 
   <main class="pt-24 p-4 flex-grow">
     <div class="max-w-[1400px] mx-auto bg-white p-6 rounded-xl shadow-lg">
-        <h1 class="text-3xl font-bold text-center text-slate-700 mb-6">Text Compare!</h1>
+        <h1 class="text-3xl font-bold text-center text-slate-700 mb-2">Remove Code Comments</h1>
+        <p class="text-center text-slate-500 mb-6 text-sm">Select a language to strip all comments from the source code.</p>
 
         <div class="flex flex-col md:flex-row gap-4 items-stretch mb-6 h-auto md:h-[600px]">
             
             <div class="w-full h-80 md:h-full flex flex-col">
                 <div class="flex justify-between items-end mb-2">
-                    <label class="text-md font-semibold text-slate-600">Original Text</label>
+                    <label class="text-md font-semibold text-slate-600">Source Code</label>
                     <div class="flex gap-1 flex-wrap justify-end">
-                        <button id="btnFormatJson" class="text-xs sm:text-sm bg-yellow-100 hover:bg-yellow-200 text-yellow-800 border border-yellow-300 px-2 py-1 rounded transition">Format JSON</button>
-                        <button id="btnFormatHtml" class="text-xs sm:text-sm bg-orange-100 hover:bg-orange-200 text-orange-800 border border-orange-300 px-2 py-1 rounded transition">Format HTML</button>
-                        <button id="btnFormatJs" class="text-xs sm:text-sm bg-blue-100 hover:bg-blue-200 text-blue-800 border border-blue-300 px-2 py-1 rounded transition">Format JS</button>
+                        <button data-lang="csharp" class="btn-lang text-xs sm:text-sm bg-purple-100 hover:bg-purple-200 text-purple-800 border border-purple-300 px-3 py-1 rounded transition font-medium">C#</button>
+                        <button data-lang="java" class="btn-lang text-xs sm:text-sm bg-orange-100 hover:bg-orange-200 text-orange-800 border border-orange-300 px-3 py-1 rounded transition font-medium">Java</button>
+                        <button data-lang="js" class="btn-lang text-xs sm:text-sm bg-yellow-100 hover:bg-yellow-200 text-yellow-800 border border-yellow-300 px-3 py-1 rounded transition font-medium">JS/TS</button>
+                        <button data-lang="python" class="btn-lang text-xs sm:text-sm bg-blue-100 hover:bg-blue-200 text-blue-800 border border-blue-300 px-3 py-1 rounded transition font-medium">Python</button>
+                        <button data-lang="sql" class="btn-lang text-xs sm:text-sm bg-gray-100 hover:bg-gray-200 text-gray-800 border border-gray-300 px-3 py-1 rounded transition font-medium">SQL</button>
                     </div>
                 </div>
-                <textarea id="originalText" class="w-full h-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-inner resize-none bg-slate-50 text-sm font-mono" placeholder="Paste one version of a text here."></textarea>
+                <textarea id="originalText" class="w-full h-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-inner resize-none bg-slate-50 text-sm font-mono" placeholder="Paste your source code with comments here..."></textarea>
             </div>
 
-            <div class="shrink-0 z-10 py-2 md:py-0 md:pt-8 flex justify-center  items-center">
-                <button id="compareBtn" 
-                    class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-lg transition transform hover:scale-110 flex items-center justify-center focus:outline-none"
-                    title="Compare">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-8 md:w-8 rotate-90 md:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+            <div class="shrink-0 z-10 py-2 md:py-0 md:pt-8 flex justify-center items-center">
+                <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 rotate-90 md:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
-                </button>
+                </div>
             </div>
 
             <div class="w-full h-80 md:h-full flex flex-col">
                 <div class="flex justify-between items-end mb-2">
-                    <label class="text-md font-semibold text-slate-600">New Text</label>
-                    <button id="clearBtn" class="flex items-center gap-1 text-sm bg-red-100 hover:bg-red-200 text-red-800 border border-red-300 px-2 py-1 rounded transition" title="Clear All Text">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                        Clear All
-                    </button>
+                    <label class="text-md font-semibold text-slate-600">Clean Code</label>
+                    <div class="flex gap-2">
+                        <button id="copyBtn" class="hidden text-xs sm:text-sm bg-green-100 hover:bg-green-200 text-green-800 border border-green-300 px-2 py-1 rounded transition">Copy</button>
+                        <button id="clearBtn" class="flex items-center gap-1 text-xs sm:text-sm bg-red-100 hover:bg-red-200 text-red-800 border border-red-300 px-2 py-1 rounded transition" title="Clear All">
+                            Clear All
+                        </button>
+                    </div>
                 </div>
-                <textarea id="newText" class="w-full h-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-inner resize-none bg-slate-50 text-sm font-mono" placeholder="Paste another version of a text here."></textarea>
-            </div>
-        </div>
-
-        <div id="resultContainer" class="hidden">
-            <div class="border-t border-slate-200 my-6"></div>
-            <div id="noChangeMsg" class="hidden">
-                <div class="bg-green-100 border border-green-400 text-green-800 px-4 py-3 rounded relative text-center font-bold">
-                    <span class="block sm:inline">The two texts are identical!</span>
-                </div>
-            </div>
-            <div id="diffOutput" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-red-50 p-4 rounded-lg border border-red-200">
-                    <h3 class="text-md font-bold text-red-700 mb-2 border-b border-red-200 pb-2">Original</h3>
-                    <div id="outputOriginal" class="whitespace-pre-wrap text-sm font-mono text-slate-700 break-words overflow-x-auto"></div>
-                </div>
-                <div class="bg-green-50 p-4 rounded-lg border border-green-200">
-                    <h3 class="text-md font-bold text-green-700 mb-2 border-b border-green-200 pb-2">New Version</h3>
-                    <div id="outputNew" class="whitespace-pre-wrap text-sm font-mono text-slate-700 break-words overflow-x-auto"></div>
-                </div>
+                <textarea id="newText" readonly class="w-full h-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 shadow-inner resize-none bg-white text-sm font-mono" placeholder="Code without comments will appear here."></textarea>
             </div>
         </div>
     </div>
@@ -188,7 +168,7 @@
     <div id="errorModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm transition-opacity">
         <div class="bg-white rounded-lg shadow-2xl w-11/12 max-w-md transform transition-all scale-100">
             <div class="flex items-center justify-between p-4 border-b border-gray-200">
-                <h3 class="text-lg font-bold text-red-600 flex items-center">Error</h3>
+                <h3 class="text-lg font-bold text-red-600 flex items-center">Notification</h3>
                 <button id="closeModalIcon" class="text-gray-400 hover:text-gray-600 focus:outline-none">X</button>
             </div>
             <div class="p-6"><p id="errorMessage" class="text-gray-700 text-sm font-mono bg-red-50 p-3 rounded border border-red-100 whitespace-pre-wrap break-words"></p></div>
