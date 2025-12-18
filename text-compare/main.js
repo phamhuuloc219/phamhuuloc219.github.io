@@ -133,3 +133,37 @@ document.getElementById('compareBtn').addEventListener('click', function() {
         resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 100);
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+        const navToggle = document.getElementById('navToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileToolsBtn = document.getElementById('mobileToolsBtn');
+        const mobileToolsDropdown = document.getElementById('mobileToolsDropdown');
+        const mobileToolsIcon = document.getElementById('mobileToolsIcon');
+
+        if(navToggle && mobileMenu) {
+            navToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        if (mobileToolsBtn && mobileToolsDropdown) {
+            mobileToolsBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                mobileToolsDropdown.classList.toggle('hidden');
+                if(mobileToolsIcon) mobileToolsIcon.classList.toggle('rotate-180');
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            if (mobileMenu && !mobileMenu.classList.contains('hidden') && 
+                !mobileMenu.contains(e.target) && 
+                !navToggle.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+        const yearEl = document.getElementById('year');
+        if(yearEl) yearEl.innerText = new Date().getFullYear();
+    });

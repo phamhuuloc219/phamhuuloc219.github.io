@@ -2,22 +2,14 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pham Huu Loc</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    
+    <title>Text Compare - Pham Huu Loc</title>
     <meta name="description" content="Pham Huu Loc - .NET Developer" />
     <meta name="keywords" content="Pham Huu Loc, PHL, .NET, ASP.NET" />
-    <meta name="author" content="Admin" />
-
-    <link
-      rel="icon"
-      type="image/png"
-      href="https://raw.githubusercontent.com/phamhuuloc219/phamhuuloc219.github.io/refs/heads/main/images/phl.png"
-    />
-
-    <link
-      rel="apple-touch-icon"
-      href="https://raw.githubusercontent.com/phamhuuloc219/phamhuuloc219.github.io/refs/heads/main/images/phl.png"
-    />
+    <meta name="author" content="Pham Huu Loc" />
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/phamhuuloc219/phamhuuloc219.github.io/refs/heads/main/images/phl.png" />
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/phamhuuloc219/phamhuuloc219.github.io/refs/heads/main/images/phl.png" />
 
     <meta name="theme-color" content="#d32f2f" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -35,46 +27,126 @@
       content="https://raw.githubusercontent.com/phamhuuloc219/phamhuuloc219.github.io/refs/heads/main/images/phl.png"
     />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "tet-red": "#d32f2f",
+              "tet-yellow": "#fbc02d",
+              "tet-bg": "#ffebee",
+            },
+            fontFamily: { sans: ["Segoe UI", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+    
     <link rel="stylesheet" href="./styles.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-css.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-html.min.js"></script>
 </head>
-<body class="bg-slate-100 min-h-screen font-sans text-slate-800 p-4">
+<body class="bg-slate-100 min-h-screen font-sans text-slate-800 flex flex-col">
+  
+  <header class="fixed w-full z-30 bg-white/60 backdrop-blur-md border-b border-white/20">
+    <div class="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3">
+        <img src="https://raw.githubusercontent.com/phamhuuloc219/phamhuuloc219.github.io/refs/heads/main/images/phl.png" alt="phl" class="w-10 h-10 rounded-full" />
+        <div>
+          <div class="text-sm font-semibold">Pham Huu Loc</div>
+          <div class="text-xs text-slate-600">.NET Developer</div>
+        </div>
+      </a>
+      <nav class="hidden md:flex gap-6 items-center text-sm">
+        <a href="/#about" class="hover:text-tet-red transition">About</a>
+        <a href="/#skills" class="hover:text-tet-red transition">Skills</a>
+        <a href="/#projects" class="hover:text-tet-red transition">Projects</a>
+        <a href="/#contact" class="hover:text-tet-red transition">Contact</a>
 
+        <div class="relative group">
+          <a href="javascript:;" class="flex items-center gap-1 hover:text-tet-red transition py-2">
+            Tools
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:rotate-180">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </a>
+
+          <div class="absolute right-0 top-full pt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+            <div class="bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden py-1">
+              <a href="/text-compare" class="flex items-center gap-2 px-4 py-2 text-slate-700 hover:bg-red-50 hover:text-tet-red transition">
+                <svg width="16px" height="16px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12.25 5.25a0.833 0.833 0 0 0 0 1.167l1.333 1.333a0.833 0.833 0 0 0 1.167 0l3.142 -3.142a5 5 0 0 1 -6.617 6.617l-5.758 5.758a1.767 1.767 0 0 1 -2.5 -2.5l5.758 -5.758a5 5 0 0 1 6.617 -6.617l-3.133 3.133z"/>
+                </svg>
+                Text Compare
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <button id="navToggle" class="md:hidden p-2 rounded-lg border ml-2">☰</button>
+    </div>
+
+    <div id="mobileMenu" class="md:hidden hidden border-t border-white/20 bg-white/95 backdrop-blur-sm shadow-lg absolute w-full left-0 z-40">
+      <div class="px-6 py-4 flex flex-col gap-3 font-medium text-slate-700">
+        <a href="/#about" class="py-2 hover:text-tet-red transition">About</a>
+        <a href="/#skills" class="py-2 hover:text-tet-red transition">Skills</a>
+        <a href="/#projects" class="py-2 hover:text-tet-red transition">Projects</a>
+        <a href="/#contact" class="py-2 hover:text-tet-red transition">Contact</a>
+
+        <div>
+          <button id="mobileToolsBtn" class="w-full flex justify-between items-center py-2 hover:text-tet-red transition group">
+            <span>Tools</span>
+            <svg id="mobileToolsIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-300">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          
+          <div id="mobileToolsDropdown" class="hidden flex-col gap-2 pl-4 mt-1 border-l-2 border-slate-200">
+            <a href="/text-compare" class="flex items-center gap-2 py-2 text-sm text-slate-600 hover:text-tet-red transition">
+              <svg width="14" height="14" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.25 5.25a0.833 0.833 0 0 0 0 1.167l1.333 1.333a0.833 0.833 0 0 0 1.167 0l3.142 -3.142a5 5 0 0 1 -6.617 6.617l-5.758 5.758a1.767 1.767 0 0 1 -2.5 -2.5l5.758 -5.758a5 5 0 0 1 6.617 -6.617l-3.133 3.133z"/></svg>
+              Text Compare
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-24 p-4 flex-grow">
     <div class="max-w-[1400px] mx-auto bg-white p-6 rounded-xl shadow-lg">
-        <h1 class="text-2xl font-bold text-center text-slate-700 mb-6">Text Compare!</h1>
+        <h1 class="text-3xl font-bold text-center text-slate-700 mb-6">Text Compare!</h1>
 
-        <div class="flex flex-col md:flex-row gap-4 items-center mb-6 h-[500px]">
+        <div class="flex flex-col md:flex-row gap-4 items-stretch mb-6 h-auto md:h-[600px]">
             
-            <div class="flex-1 w-full h-full flex flex-col">
+            <div class="w-full h-80 md:h-full flex flex-col">
                 <div class="flex justify-between items-end mb-2">
-                    <label class="font-semibold text-slate-600">Original Text</label>
-                    <div class="flex gap-1">
-                        <button id="btnFormatJson" class="text-xs bg-yellow-100 hover:bg-yellow-200 text-yellow-800 border border-yellow-300 px-2 py-1 rounded transition">Format JSON</button>
-                        <button id="btnFormatHtml" class="text-xs bg-orange-100 hover:bg-orange-200 text-orange-800 border border-orange-300 px-2 py-1 rounded transition">Format HTML</button>
-                        <button id="btnFormatJs" class="text-xs bg-blue-100 hover:bg-blue-200 text-blue-800 border border-blue-300 px-2 py-1 rounded transition">Format JS</button>
+                    <label class="text-md font-semibold text-slate-600">Original Text</label>
+                    <div class="flex gap-1 flex-wrap justify-end">
+                        <button id="btnFormatJson" class="text-xs sm:text-sm bg-yellow-100 hover:bg-yellow-200 text-yellow-800 border border-yellow-300 px-2 py-1 rounded transition">Format JSON</button>
+                        <button id="btnFormatHtml" class="text-xs sm:text-sm bg-orange-100 hover:bg-orange-200 text-orange-800 border border-orange-300 px-2 py-1 rounded transition">Format HTML</button>
+                        <button id="btnFormatJs" class="text-xs sm:text-sm bg-blue-100 hover:bg-blue-200 text-blue-800 border border-blue-300 px-2 py-1 rounded transition">Format JS</button>
                     </div>
                 </div>
                 <textarea id="originalText" class="w-full h-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-inner resize-none bg-slate-50 text-sm font-mono" placeholder="Paste one version of a text here."></textarea>
             </div>
 
-            <div class="shrink-0 z-10 pt-8">
+            <div class="shrink-0 z-10 py-2 md:py-0 md:pt-8 flex justify-center">
                 <button id="compareBtn" 
                     class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-lg transition transform hover:scale-110 flex items-center justify-center focus:outline-none"
                     title="Compare">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-8 md:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-8 md:w-8 rotate-90 md:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                     </svg>
                 </button>
             </div>
 
-            <div class="flex-1 w-full h-full flex flex-col">
+            <div class="w-full h-80 md:h-full flex flex-col">
                 <div class="flex justify-between items-end mb-2">
-                    <label class="font-semibold text-slate-600">New Text</label>
-                    
-                    <button id="clearBtn" class="flex items-center gap-1 text-xs bg-red-100 hover:bg-red-200 text-red-800 border border-red-300 px-2 py-1 rounded transition" title="Clear All Text">
+                    <label class="text-md font-semibold text-slate-600">New Text</label>
+                    <button id="clearBtn" class="flex items-center gap-1 text-sm bg-red-100 hover:bg-red-200 text-red-800 border border-red-300 px-2 py-1 rounded transition" title="Clear All Text">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
@@ -95,11 +167,11 @@
             <div id="diffOutput" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="bg-red-50 p-4 rounded-lg border border-red-200">
                     <h3 class="text-md font-bold text-red-700 mb-2 border-b border-red-200 pb-2">Original</h3>
-                    <div id="outputOriginal" class="whitespace-pre-wrap text-sm font-mono text-slate-700 break-words"></div>
+                    <div id="outputOriginal" class="whitespace-pre-wrap text-sm font-mono text-slate-700 break-words overflow-x-auto"></div>
                 </div>
                 <div class="bg-green-50 p-4 rounded-lg border border-green-200">
                     <h3 class="text-md font-bold text-green-700 mb-2 border-b border-green-200 pb-2">New Version</h3>
-                    <div id="outputNew" class="whitespace-pre-wrap text-sm font-mono text-slate-700 break-words"></div>
+                    <div id="outputNew" class="whitespace-pre-wrap text-sm font-mono text-slate-700 break-words overflow-x-auto"></div>
                 </div>
             </div>
         </div>
@@ -115,10 +187,11 @@
             <div class="p-4 border-t border-gray-200 text-right"><button id="closeModalBtn" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded font-semibold transition">Close</button></div>
         </div>
     </div>
+  </main>
 
-    <footer class="max-w-5xl mx-auto px-6 py-8 text-center text-sm text-slate-500">© <span id="year"></span> Designed by <a href="https://phamhuuloc219.github.io" target="_blank" class="font-bold hover:text-white transition-colors underline decoration-sky-400 underline-offset-2">PHL</a>.</footer>
+  <footer class="max-w-5xl mx-auto px-6 py-8 text-center text-sm text-slate-500 w-full">© <span id="year"></span> Designed by <a href="https://phamhuuloc219.github.io" target="_blank" class="font-bold hover:text-white transition-colors underline decoration-sky-400 underline-offset-2">PHL</a>.</footer>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.1.0/diff.min.js"></script>
-    <script src="./script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.1.0/diff.min.js"></script>
+  <script src="./main.js"></script>
 </body>
 </html>

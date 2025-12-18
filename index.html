@@ -2,11 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    
     <title>Pham Huu Loc</title>
     <meta name="description" content="Pham Huu Loc - .NET Developer" />
     <meta name="keywords" content="Pham Huu Loc, PHL, .NET, ASP.NET" />
-    <meta name="author" content="Admin" />
+    <meta name="author" content="Pham Huu Loc" />
 
     <link
       rel="icon"
@@ -69,28 +70,55 @@
         <a href="#skills" class="hover:text-tet-red transition">Skills</a>
         <a href="#projects" class="hover:text-tet-red transition">Projects</a>
         <a href="#contact" class="hover:text-tet-red transition">Contact</a>
-      </nav>
-      <!-- Desktop -->
-      <a href="/li-xi"
-        class="hidden md:inline-block bg-tet-red text-white px-4 py-2 rounded-lg text-sm font-medium shadow-sm hover:brightness-95 transition">
-        Lucky Money
-      </a>
 
-      <a href="/text-compare"
-        class="hidden md:inline-block bg-tet-red text-white px-4 py-2 rounded-lg text-sm font-medium shadow-sm hover:brightness-95 transition">
-        Text Compare
-      </a>
+        <div class="relative group">
+          <a href="javascript:;" class="flex items-center gap-1 hover:text-tet-red transition py-2">
+            Tools
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:rotate-180">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </a>
+
+          <div class="absolute right-0 top-full pt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+            <div class="bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden py-1">
+              
+              <a href="/text-compare" class="flex items-center gap-2 px-4 py-2 text-slate-700 hover:bg-red-50 hover:text-tet-red transition">
+                <svg width="16px" height="16px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12.25 5.25a0.833 0.833 0 0 0 0 1.167l1.333 1.333a0.833 0.833 0 0 0 1.167 0l3.142 -3.142a5 5 0 0 1 -6.617 6.617l-5.758 5.758a1.767 1.767 0 0 1 -2.5 -2.5l5.758 -5.758a5 5 0 0 1 6.617 -6.617l-3.133 3.133z"/>
+                </svg>
+                Text Compare
+              </a>
+              
+              </div>
+          </div>
+        </div>
+      </nav>
 
       <button id="navToggle" class="md:hidden p-2 rounded-lg border ml-2">☰</button>
     </div>
-    <!-- mobile menu -->
-    <div id="mobileMenu" class="md:hidden hidden border-t border-white/20 bg-white/70 backdrop-blur-sm">
-      <div class="px-6 py-4 flex flex-col gap-3">
-        <a href="#about" class="py-2">About</a>
-        <a href="#skills" class="py-2">Skills</a>
-        <a href="#projects" class="py-2">Projects</a>
-        <a href="#contact" class="py-2">Contact</a>
-        <a href="/text-compare" class="py-2">Text Compare</a>
+
+    <div id="mobileMenu" class="md:hidden hidden border-t border-white/20 bg-white/90 backdrop-blur-sm shadow-lg absolute w-full left-0 z-40">
+      <div class="px-6 py-4 flex flex-col gap-3 font-medium text-slate-700">
+        <a href="#about" class="py-2 hover:text-tet-red transition">About</a>
+        <a href="#skills" class="py-2 hover:text-tet-red transition">Skills</a>
+        <a href="#projects" class="py-2 hover:text-tet-red transition">Projects</a>
+        <a href="#contact" class="py-2 hover:text-tet-red transition">Contact</a>
+
+        <div>
+          <button id="mobileToolsBtn" class="w-full flex justify-between items-center py-2 hover:text-tet-red transition group">
+            <span>Tools</span>
+            <svg id="mobileToolsIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-300">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          
+          <div id="mobileToolsDropdown" class="hidden flex-col gap-2 pl-4 mt-1 border-l-2 border-slate-200">
+            <a href="/text-compare" class="flex items-center gap-2 py-2 text-sm text-slate-600 hover:text-tet-red transition">
+              <svg width="14" height="14" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.25 5.25a0.833 0.833 0 0 0 0 1.167l1.333 1.333a0.833 0.833 0 0 0 1.167 0l3.142 -3.142a5 5 0 0 1 -6.617 6.617l-5.758 5.758a1.767 1.767 0 0 1 -2.5 -2.5l5.758 -5.758a5 5 0 0 1 6.617 -6.617l-3.133 3.133z"/></svg>
+              Text Compare
+            </a>
+            </div>
+        </div>
       </div>
     </div>
   </header>
@@ -308,14 +336,13 @@
       </div>
     </section>
 
-<!-- Mobile fixed button-->
 <a href="/li-xi"
-  class="md:hidden fixed bottom-20 right-4 bg-tet-red text-white px-4 py-3 rounded-full shadow-lg text-sm font-semibold animate-bounce z-50">
-  Lucky Money
+  class="fixed bottom-20 right-4 bg-tet-red text-white px-4 py-3 rounded-full shadow-lg text-sm font-semibold animate-bounce z-50">
+  <svg width="24px" height="24px" viewBox="0 0 30.72 30.72" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M24.253 15.36c0 4.911 -3.982 8.893 -8.893 8.893S6.467 20.271 6.467 15.36 10.449 6.467 15.36 6.467s8.893 3.982 8.893 8.893m-6.467 -2.425h-4.851v4.85h4.85z" fill="#F7C768"/><path d="M24.253 16.169h-3.234v-1.617h3.234zm-12.934 -4.85H19.402V19.402H11.318zm1.617 6.467h4.85v-4.851h-4.851zM15.36 3.234c-6.686 0 -12.126 5.44 -12.126 12.126s5.44 12.126 12.126 12.126c0.272 0 0.54 -0.022 0.808 -0.041v-1.617c-0.268 0.021 -0.536 0.041 -0.808 0.041 -5.795 0 -10.51 -4.714 -10.51 -10.51S9.566 4.85 15.36 4.85s10.51 4.715 10.51 10.51c0 4.959 -3.457 9.116 -8.084 10.216v1.667c5.528 -1.127 9.7 -6.026 9.7 -11.882 0 -6.686 -5.44 -12.126 -12.126 -12.126M6.467 16.169h3.234v-1.617H6.467zm9.701 4.85h-1.617v3.234h1.617zM14.552 6.467v3.234h1.617V6.467z" fill="#231F20"/></svg>
 </a>
 
 <button id="celebrate"
-  class="fixed bottom-4 right-4 bg-tet-yellow px-4 py-3 rounded-full shadow-lg font-semibold animate-bounce z-40">
+  class="fixed bottom-4 right-4 bg-tet-yellow px-4 py-3 rounded-full shadow-lg font-semibold animate-bounce z-40 touch-manipulation select-none">
   🎉
 </button>
     <!-- <footer class="max-w-5xl mx-auto px-6 py-8 text-center text-sm text-slate-500">© <span id="year"></span> Pham Huu Loc — Built with ❤️</footer> -->

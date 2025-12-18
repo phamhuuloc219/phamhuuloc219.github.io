@@ -1,7 +1,36 @@
-// Mobile menu toggle
+// --- Mobile menu toggle & Interaction ---
 const navToggle = document.getElementById('navToggle');
 const mobileMenu = document.getElementById('mobileMenu');
-navToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+const mobileToolsBtn = document.getElementById('mobileToolsBtn');
+const mobileToolsDropdown = document.getElementById('mobileToolsDropdown');
+const mobileToolsIcon = document.getElementById('mobileToolsIcon');
+
+navToggle.addEventListener('click', (e) => {
+    e.stopPropagation(); 
+    mobileMenu.classList.toggle('hidden');
+});
+
+if (mobileToolsBtn) {
+    mobileToolsBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        mobileToolsDropdown.classList.toggle('hidden');
+        mobileToolsIcon.classList.toggle('rotate-180');
+    });
+}
+
+document.addEventListener('click', (e) => {
+    if (!mobileMenu.classList.contains('hidden') && 
+        !mobileMenu.contains(e.target) && 
+        !navToggle.contains(e.target)) {
+        
+        mobileMenu.classList.add('hidden');
+        
+        mobileToolsDropdown.classList.add('hidden');
+        mobileToolsIcon.classList.remove('rotate-180');
+    }
+});
+
+// --- End Mobile menu section ---
 
 
 // Reveal on scroll using IntersectionObserver
