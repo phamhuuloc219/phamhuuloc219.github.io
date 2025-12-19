@@ -1,4 +1,3 @@
-/* small helpers for reveal animation */
 .reveal {
   transform: translateY(20px);
   opacity: 0;
@@ -8,7 +7,7 @@
   transform: translateY(0);
   opacity: 1;
 }
-/* subtle floating effect for avatar */
+
 @keyframes floaty {
   0% {
     transform: translateY(0);
@@ -23,7 +22,7 @@
 .floaty {
   animation: floaty 4s ease-in-out infinite;
 }
-/* smooth scrollbar color */
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 8px;
@@ -31,4 +30,19 @@
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #d32f2f, #fbc02d);
   border-radius: 10px;
+}
+
+textarea::-webkit-scrollbar {
+    width: 8px;
+}
+textarea::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 4px;
+}
+textarea::-webkit-scrollbar-thumb {
+    background: #cbd5e1; 
+    border-radius: 4px;
+}
+textarea::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8; 
 }

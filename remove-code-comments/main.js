@@ -1,26 +1,3 @@
-const errorModal = document.getElementById('errorModal');
-const errorMessage = document.getElementById('errorMessage');
-const closeModalBtn = document.getElementById('closeModalBtn');
-const closeModalIcon = document.getElementById('closeModalIcon');
-
-function showError(msg) {
-    errorMessage.textContent = msg;
-    errorModal.classList.remove('hidden');
-}
-
-function hideError() {
-    errorModal.classList.add('hidden');
-}
-
-closeModalBtn.addEventListener('click', hideError);
-closeModalIcon.addEventListener('click', hideError);
-
-errorModal.addEventListener('click', (e) => {
-    if (e.target === errorModal) {
-        hideError();
-    }
-});
-
 const originalTextArea = document.getElementById('originalText');
 const newTextArea = document.getElementById('newText');
 const copyBtn = document.getElementById('copyBtn');
@@ -46,15 +23,20 @@ function removeComments(code, lang) {
             case 'sql':
                 result = code.replace(/\/\*[\s\S]*?\*\/|--.*$/gm, '');
                 break;
-                
+
+            case 'css':
+                result = code.replace(/\/\*[\s\S]*?\*\//gm, '');
+                break;
+
             default:
                 showError("Language not yet supported!");
                 return code;
         }
 
-        result = result.replace(/^\s*[\r\n]/gm, ""); 
-        
-        return result;
+        result = result.replace(/^[ \t]+$/gm, '');
+        result = result.replace(/(\r\n|\n|\r){3,}/g, '\n\n');
+
+        return result.trim();
 
     } catch (e) {
         console.error(e);
@@ -78,7 +60,7 @@ langButtons.forEach(btn => {
         const cleanCode = removeComments(content, lang);
         newTextArea.value = cleanCode;
         
-        copyBtn.classList.remove('hidden');
+        if (copyBtn) copyBtn.classList.remove('hidden');
         
         newTextArea.classList.add('ring-2', 'ring-green-500');
         setTimeout(() => {
@@ -87,55 +69,26 @@ langButtons.forEach(btn => {
     });
 });
 
-document.getElementById('clearBtn').addEventListener('click', () => {
-    originalTextArea.value = '';
-    newTextArea.value = '';
-    copyBtn.classList.add('hidden');
-});
-
-copyBtn.addEventListener('click', () => {
-    if (!newTextArea.value) return;
-    navigator.clipboard.writeText(newTextArea.value).then(() => {
-        const originalText = copyBtn.innerText;
-        copyBtn.innerText = "Copied!";
-        copyBtn.classList.add("bg-green-300");
-        setTimeout(() => {
-            copyBtn.innerText = originalText;
-            copyBtn.classList.remove("bg-green-300");
-        }, 1500);
+const clearBtn = document.getElementById('clearBtn');
+if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+        originalTextArea.value = '';
+        newTextArea.value = '';
+        if (copyBtn) copyBtn.classList.add('hidden');
     });
-});
+}
 
-document.addEventListener('DOMContentLoaded', () => {
-        const navToggle = document.getElementById('navToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const mobileToolsBtn = document.getElementById('mobileToolsBtn');
-        const mobileToolsDropdown = document.getElementById('mobileToolsDropdown');
-        const mobileToolsIcon = document.getElementById('mobileToolsIcon');
-
-        if(navToggle && mobileMenu) {
-            navToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                mobileMenu.classList.toggle('hidden');
-            });
-        }
-
-        if (mobileToolsBtn && mobileToolsDropdown) {
-            mobileToolsBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                mobileToolsDropdown.classList.toggle('hidden');
-                if(mobileToolsIcon) mobileToolsIcon.classList.toggle('rotate-180');
-            });
-        }
-
-        document.addEventListener('click', (e) => {
-            if (mobileMenu && !mobileMenu.classList.contains('hidden') && 
-                !mobileMenu.contains(e.target) && 
-                !navToggle.contains(e.target)) {
-                mobileMenu.classList.add('hidden');
-            }
+if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+        if (!newTextArea.value) return;
+        navigator.clipboard.writeText(newTextArea.value).then(() => {
+            const originalText = copyBtn.innerText;
+            copyBtn.innerText = "Copied!";
+            copyBtn.classList.add("bg-green-300");
+            setTimeout(() => {
+                copyBtn.innerText = originalText;
+                copyBtn.classList.remove("bg-green-300");
+            }, 1500);
         });
-
-        const yearEl = document.getElementById('year');
-        if(yearEl) yearEl.innerText = new Date().getFullYear();
     });
+}

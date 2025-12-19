@@ -1,26 +1,3 @@
-const errorModal = document.getElementById('errorModal');
-const errorMessage = document.getElementById('errorMessage');
-const closeModalBtn = document.getElementById('closeModalBtn');
-const closeModalIcon = document.getElementById('closeModalIcon');
-
-function showError(msg) {
-    errorMessage.textContent = msg;
-    errorModal.classList.remove('hidden');
-}
-
-function hideError() {
-    errorModal.classList.add('hidden');
-}
-
-closeModalBtn.addEventListener('click', hideError);
-closeModalIcon.addEventListener('click', hideError);
-
-errorModal.addEventListener('click', (e) => {
-    if (e.target === errorModal) {
-        hideError();
-    }
-});
-
 const originalTextArea = document.getElementById('originalText');
 const newTextArea = document.getElementById('newText');
 
@@ -38,19 +15,24 @@ document.getElementById('btnFormatJson').addEventListener('click', () => {
 document.getElementById('btnFormatHtml').addEventListener('click', () => {
     const content = originalTextArea.value;
     if (!content) return;
-    originalTextArea.value = html_beautify(content, { 
-        indent_size: 4,
-        wrap_line_length: 80
-    });
+
+    if(typeof html_beautify !== 'undefined') {
+        originalTextArea.value = html_beautify(content, { 
+            indent_size: 4,
+            wrap_line_length: 80
+        });
+    }
 });
 
 document.getElementById('btnFormatJs').addEventListener('click', () => {
     const content = originalTextArea.value;
     if (!content) return;
-    originalTextArea.value = js_beautify(content, { 
-        indent_size: 4,
-        space_in_empty_paren: true
-    });
+    if(typeof js_beautify !== 'undefined') {
+        originalTextArea.value = js_beautify(content, { 
+            indent_size: 4,
+            space_in_empty_paren: true
+        });
+    }
 });
 
 document.getElementById('clearBtn').addEventListener('click', () => {
@@ -67,7 +49,7 @@ document.getElementById('clearBtn').addEventListener('click', () => {
     noChangeMsg.classList.add('hidden');
     diffOutput.classList.add('hidden');
     diffOutput.classList.remove('grid');
-    
+
     outputOriginal.innerHTML = '';
     outputNew.innerHTML = '';
 });
@@ -75,7 +57,7 @@ document.getElementById('clearBtn').addEventListener('click', () => {
 document.getElementById('compareBtn').addEventListener('click', function() {
     const originalText = originalTextArea.value;
     const newText = newTextArea.value;
-    
+
     const resultContainer = document.getElementById('resultContainer');
     const noChangeMsg = document.getElementById('noChangeMsg');
     const diffOutput = document.getElementById('diffOutput');
@@ -86,7 +68,7 @@ document.getElementById('compareBtn').addEventListener('click', function() {
     noChangeMsg.classList.add('hidden');
     diffOutput.classList.add('hidden');
     diffOutput.classList.remove('grid');
-    
+
     outputOriginal.innerHTML = '';
     outputNew.innerHTML = '';
 
@@ -104,6 +86,7 @@ document.getElementById('compareBtn').addEventListener('click', function() {
     const fragmentNew = document.createDocumentFragment();
 
     diff.forEach((part) => {
+
         const removedClass = "bg-red-300 text-red-900 line-through decoration-red-900 px-1 rounded mx-0.5";
         const addedClass = "bg-green-300 text-green-900 font-bold px-1 rounded mx-0.5";
 
@@ -133,37 +116,3 @@ document.getElementById('compareBtn').addEventListener('click', function() {
         resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 100);
 });
-
-document.addEventListener('DOMContentLoaded', () => {
-        const navToggle = document.getElementById('navToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const mobileToolsBtn = document.getElementById('mobileToolsBtn');
-        const mobileToolsDropdown = document.getElementById('mobileToolsDropdown');
-        const mobileToolsIcon = document.getElementById('mobileToolsIcon');
-
-        if(navToggle && mobileMenu) {
-            navToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                mobileMenu.classList.toggle('hidden');
-            });
-        }
-
-        if (mobileToolsBtn && mobileToolsDropdown) {
-            mobileToolsBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                mobileToolsDropdown.classList.toggle('hidden');
-                if(mobileToolsIcon) mobileToolsIcon.classList.toggle('rotate-180');
-            });
-        }
-
-        document.addEventListener('click', (e) => {
-            if (mobileMenu && !mobileMenu.classList.contains('hidden') && 
-                !mobileMenu.contains(e.target) && 
-                !navToggle.contains(e.target)) {
-                mobileMenu.classList.add('hidden');
-            }
-        });
-
-        const yearEl = document.getElementById('year');
-        if(yearEl) yearEl.innerText = new Date().getFullYear();
-    });

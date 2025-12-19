@@ -42,11 +42,11 @@
       };
     </script>
     
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body class="bg-slate-100 min-h-screen font-sans text-slate-800 flex flex-col">
   
-  <header class="fixed w-full z-30 bg-white/60 backdrop-blur-md border-b border-white/20">
+  <!-- <header class="fixed w-full z-30 bg-white/60 backdrop-blur-md border-b border-white/20">
     <div class="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
       <a href="/" class="flex items-center gap-3">
         <img src="https://raw.githubusercontent.com/phamhuuloc219/phamhuuloc219.github.io/refs/heads/main/images/phl.png" alt="phl" class="w-10 h-10 rounded-full" />
@@ -72,9 +72,7 @@
           <div class="absolute right-0 top-full pt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
             <div class="bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden py-1">
               <a href="/text-compare" class="flex items-center gap-2 px-4 py-2 text-slate-700 hover:bg-red-50 hover:text-tet-red transition">
-                <svg width="16px" height="16px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12.25 5.25a0.833 0.833 0 0 0 0 1.167l1.333 1.333a0.833 0.833 0 0 0 1.167 0l3.142 -3.142a5 5 0 0 1 -6.617 6.617l-5.758 5.758a1.767 1.767 0 0 1 -2.5 -2.5l5.758 -5.758a5 5 0 0 1 6.617 -6.617l-3.133 3.133z"/>
-                </svg>
+                <svg fill="#000000" width="16px" height="16px" viewBox="0 0 0.48 0.48" xmlns="http://www.w3.org/2000/svg"><path d="M0.021 0.16A0.023 0.023 0 0 1 0.04 0.141h0.152L0.146 0.094A0.021 0.021 0 1 1 0.174 0.066l0.08 0.08a0.023 0.023 0 0 1 0 0.029l-0.08 0.08A0.021 0.021 0 1 1 0.146 0.226l0.046 -0.046H0.04A0.023 0.023 0 0 1 0.021 0.16m0.419 0.141H0.288l0.046 -0.047A0.021 0.021 0 0 0 0.306 0.226l-0.08 0.08a0.023 0.023 0 0 0 0 0.029l0.08 0.08A0.021 0.021 0 0 0 0.334 0.386l-0.046 -0.046h0.152a0.021 0.021 0 0 0 0 -0.04"/></svg>
                 Text Compare
               </a>
               <a href="/remove-code-comments" class="flex items-center gap-2 px-4 py-2 text-slate-700 hover:bg-red-50 hover:text-tet-red transition">
@@ -119,12 +117,11 @@
         </div>
       </div>
     </div>
-  </header>
-
+  </header> -->
+<div id="app-header"></div>
   <main class="pt-24 p-4 flex-grow">
     <div class="max-w-[1400px] mx-auto bg-white p-6 rounded-xl shadow-lg">
-        <h1 class="text-3xl font-bold text-center text-slate-700 mb-2">Remove Code Comments</h1>
-        <p class="text-center text-slate-500 mb-6 text-sm">Select a language to strip all comments from the source code.</p>
+        <h1 class="text-3xl font-bold text-center text-slate-700 mb-6">Remove Code Comments</h1>
 
         <div class="flex flex-col md:flex-row gap-4 items-stretch mb-6 h-auto md:h-[600px]">
             
@@ -137,14 +134,15 @@
                         <button data-lang="js" class="btn-lang text-xs sm:text-sm bg-yellow-100 hover:bg-yellow-200 text-yellow-800 border border-yellow-300 px-3 py-1 rounded transition font-medium">JS/TS</button>
                         <button data-lang="python" class="btn-lang text-xs sm:text-sm bg-blue-100 hover:bg-blue-200 text-blue-800 border border-blue-300 px-3 py-1 rounded transition font-medium">Python</button>
                         <button data-lang="sql" class="btn-lang text-xs sm:text-sm bg-gray-100 hover:bg-gray-200 text-gray-800 border border-gray-300 px-3 py-1 rounded transition font-medium">SQL</button>
+                        <button data-lang="css" class="btn-lang text-xs sm:text-sm bg-sky-100 hover:bg-sky-200 text-sky-800 border border-sky-300 px-3 py-1 rounded transition font-medium">CSS</button>
                     </div>
                 </div>
                 <textarea id="originalText" class="w-full h-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-inner resize-none bg-slate-50 text-sm font-mono" placeholder="Paste your source code with comments here..."></textarea>
             </div>
 
             <div class="shrink-0 z-10 py-2 md:py-0 md:pt-8 flex justify-center items-center">
-                <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 rotate-90 md:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-blue-600 text-white shadow-lg transition transform flex items-center justify-center focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 rotate-90 md:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                 </div>
@@ -155,8 +153,11 @@
                     <label class="text-md font-semibold text-slate-600">Clean Code</label>
                     <div class="flex gap-2">
                         <button id="copyBtn" class="hidden text-xs sm:text-sm bg-green-100 hover:bg-green-200 text-green-800 border border-green-300 px-2 py-1 rounded transition">Copy</button>
-                        <button id="clearBtn" class="flex items-center gap-1 text-xs sm:text-sm bg-red-100 hover:bg-red-200 text-red-800 border border-red-300 px-2 py-1 rounded transition" title="Clear All">
-                            Clear All
+                        <button id="clearBtn" class="font-medium flex items-center gap-1 text-xs sm:text-sm bg-red-100 hover:bg-red-200 text-red-800 border border-red-300 px-2 py-1 rounded transition" title="Clear All">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>  
+                          Clear All
                         </button>
                     </div>
                 </div>
@@ -177,8 +178,10 @@
     </div>
   </main>
 
-  <footer class="max-w-5xl mx-auto px-6 py-8 text-center text-sm text-slate-500 w-full">© <span id="year"></span> Designed by <a href="https://phamhuuloc219.github.io" target="_blank" class="font-bold hover:text-white transition-colors underline decoration-sky-400 underline-offset-2">PHL</a>.</footer>
+  <!-- <footer class="max-w-5xl mx-auto px-6 py-8 text-center text-sm text-slate-500 w-full">© <span id="year"></span> Designed by <a href="https://phamhuuloc219.github.io" target="_blank" class="font-bold hover:text-white transition-colors underline decoration-sky-400 underline-offset-2">PHL</a>.</footer> -->
+    <div id="app-footer"></div>
     
+  <script src="../layout.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.1.0/diff.min.js"></script>
   <script src="./main.js"></script>
 </body>
