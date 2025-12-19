@@ -50,79 +50,6 @@
 </head>
 <body class="bg-slate-100 min-h-screen font-sans text-slate-800 flex flex-col">
   
-  <!-- <header class="fixed w-full z-30 bg-white/60 backdrop-blur-md border-b border-white/20">
-    <div class="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-3">
-        <img src="https://raw.githubusercontent.com/phamhuuloc219/phamhuuloc219.github.io/refs/heads/main/images/phl.png" alt="phl" class="w-10 h-10 rounded-full" />
-        <div>
-          <div class="text-sm font-semibold">Pham Huu Loc</div>
-          <div class="text-xs text-slate-600">.NET Developer</div>
-        </div>
-      </a>
-      <nav class="hidden md:flex gap-6 items-center text-sm">
-        <a href="/#about" class="hover:text-tet-red transition">About</a>
-        <a href="/#skills" class="hover:text-tet-red transition">Skills</a>
-        <a href="/#projects" class="hover:text-tet-red transition">Projects</a>
-        <a href="/#contact" class="hover:text-tet-red transition">Contact</a>
-
-        <div class="relative group">
-          <a href="javascript:;" class="flex items-center gap-1 hover:text-tet-red transition py-2">
-            Tools
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:rotate-180">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </a>
-
-          <div class="absolute right-0 top-full pt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-            <div class="bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden py-1">
-              <a href="/text-compare" class="flex items-center gap-2 px-4 py-2 text-slate-700 hover:bg-red-50 hover:text-tet-red transition">
-                <svg fill="#000000" width="16px" height="16px" viewBox="0 0 0.48 0.48" xmlns="http://www.w3.org/2000/svg"><path d="M0.021 0.16A0.023 0.023 0 0 1 0.04 0.141h0.152L0.146 0.094A0.021 0.021 0 1 1 0.174 0.066l0.08 0.08a0.023 0.023 0 0 1 0 0.029l-0.08 0.08A0.021 0.021 0 1 1 0.146 0.226l0.046 -0.046H0.04A0.023 0.023 0 0 1 0.021 0.16m0.419 0.141H0.288l0.046 -0.047A0.021 0.021 0 0 0 0.306 0.226l-0.08 0.08a0.023 0.023 0 0 0 0 0.029l0.08 0.08A0.021 0.021 0 0 0 0.334 0.386l-0.046 -0.046h0.152a0.021 0.021 0 0 0 0 -0.04"/></svg>
-                Text Compare
-              </a>
-              <a href="/remove-code-comments" class="flex items-center gap-2 px-4 py-2 text-slate-700 hover:bg-red-50 hover:text-tet-red transition">
-                <svg fill="#000000" width="18px" height="18px" viewBox="0 0 0.54 0.54" xmlns="http://www.w3.org/2000/svg"><path d="M0.067 0.27h0.135A0.026 0.026 0 0 0 0.225 0.248V0.113A0.026 0.026 0 0 0 0.203 0.09H0.067a0.026 0.026 0 0 0 -0.022 0.023v0.135a0.026 0.026 0 0 0 0.023 0.023M0.09 0.135h0.09v0.09H0.09ZM0.293 0.18h0.18a0.023 0.023 0 0 0 0 -0.045h-0.18a0.023 0.023 0 0 0 0 0.045m0 0.225H0.068a0.023 0.023 0 0 0 0 0.045h0.225a0.023 0.023 0 0 0 0 -0.045m0.179 -0.09H0.067a0.023 0.023 0 0 0 0 0.045h0.405a0.023 0.023 0 0 0 0 -0.045m0 -0.09H0.293a0.023 0.023 0 0 0 0 0.045h0.18a0.023 0.023 0 0 0 0 -0.045"/></svg>
-                Remove Code Comments
-              </a>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      <button id="navToggle" class="md:hidden p-2 rounded-lg border ml-2">☰</button>
-    </div>
-
-    <div id="mobileMenu" class="md:hidden hidden border-t border-white/20 bg-white/95 backdrop-blur-sm shadow-lg absolute w-full left-0 z-40">
-      <div class="px-6 py-4 flex flex-col gap-3 font-medium text-slate-700">
-        <a href="/#about" class="py-2 hover:text-tet-red transition">About</a>
-        <a href="/#skills" class="py-2 hover:text-tet-red transition">Skills</a>
-        <a href="/#projects" class="py-2 hover:text-tet-red transition">Projects</a>
-        <a href="/#contact" class="py-2 hover:text-tet-red transition">Contact</a>
-
-        <div>
-          <button id="mobileToolsBtn" class="w-full flex justify-between items-center py-2 hover:text-tet-red transition group">
-            <span>Tools</span>
-            <svg id="mobileToolsIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-300">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-          
-          <div id="mobileToolsDropdown" class="hidden flex-col gap-2 pl-4 mt-1 border-l-2 border-slate-200">
-            <a href="/text-compare" class="flex items-center gap-2 py-2 text-sm text-slate-600 hover:text-tet-red transition">
-              <svg width="14" height="14" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.25 5.25a0.833 0.833 0 0 0 0 1.167l1.333 1.333a0.833 0.833 0 0 0 1.167 0l3.142 -3.142a5 5 0 0 1 -6.617 6.617l-5.758 5.758a1.767 1.767 0 0 1 -2.5 -2.5l5.758 -5.758a5 5 0 0 1 6.617 -6.617l-3.133 3.133z"/></svg>
-              Text Compare
-            </a>
-            <a href="/remove-code-comments" class="flex items-center gap-2 py-2 text-sm text-slate-600 hover:text-tet-red transition">
-              <svg fill="#000000" width="16px" height="16px" viewBox="0 0 0.48 0.48" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0.06 0.24h0.12A0.02 0.02 0 0 0 0.2 0.22V0.1A0.02 0.02 0 0 0 0.18 0.08H0.06a0.02 0.02 0 0 0 -0.02 0.02v0.12a0.02 0.02 0 0 0 0.02 0.02M0.08 0.12h0.08V0.2H0.08Zm0.18 0.04h0.16a0.02 0.02 0 0 0 0 -0.04H0.26a0.02 0.02 0 0 0 0 0.04m0 0.2h-0.2a0.02 0.02 0 0 0 0 0.04h0.2a0.02 0.02 0 0 0 0 -0.04M0.42 0.28H0.06a0.02 0.02 0 0 0 0 0.04h0.36a0.02 0.02 0 0 0 0 -0.04m0 -0.08H0.26a0.02 0.02 0 0 0 0 0.04h0.16a0.02 0.02 0 0 0 0 -0.04"/>
-                </svg>
-              Remove Code Comments
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header> -->
-
   <div id="app-header"></div>
 
   <main class="pt-24 p-4 flex-grow">
@@ -175,14 +102,14 @@
                 </div>
             </div>
             <div id="diffOutput" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-red-50 p-4 rounded-lg border border-red-200">
-                    <h3 class="text-md font-bold text-red-700 mb-2 border-b border-red-200 pb-2">Original</h3>
-                    <div id="outputOriginal" class="whitespace-pre-wrap text-sm font-mono text-slate-700 break-words overflow-x-auto"></div>
-                </div>
-                <div class="bg-green-50 p-4 rounded-lg border border-green-200">
-                    <h3 class="text-md font-bold text-green-700 mb-2 border-b border-green-200 pb-2">New Version</h3>
-                    <div id="outputNew" class="whitespace-pre-wrap text-sm font-mono text-slate-700 break-words overflow-x-auto"></div>
-                </div>
+              <div class="bg-red-50 p-4 rounded-lg border border-red-200 overflow-hidden flex flex-col">
+                  <h3 class="text-md font-bold text-red-700 mb-2 border-b border-red-200 pb-2">Original</h3>
+                  <div id="outputOriginal" class="text-sm font-mono text-slate-700 overflow-x-auto"></div>
+              </div>
+              <div class="bg-green-50 p-4 rounded-lg border border-green-200 overflow-hidden flex flex-col">
+                  <h3 class="text-md font-bold text-green-700 mb-2 border-b border-green-200 pb-2">New Version</h3>
+                  <div id="outputNew" class="text-sm font-mono text-slate-700 overflow-x-auto"></div>
+              </div>
             </div>
         </div>
     </div>
@@ -199,8 +126,7 @@
     </div>
   </main>
 
-  <!-- <footer class="max-w-5xl mx-auto px-6 py-8 text-center text-sm text-slate-500 w-full">© <span id="year"></span> Designed by <a href="https://phamhuuloc219.github.io" target="_blank" class="font-bold hover:text-white transition-colors underline decoration-sky-400 underline-offset-2">PHL</a>.</footer> -->
-    <div id="app-footer"></div>
+  <div id="app-footer"></div>
     
   <script src="../layout.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.1.0/diff.min.js"></script>
