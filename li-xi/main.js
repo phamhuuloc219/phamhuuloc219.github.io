@@ -158,7 +158,7 @@ function spinWheel() {
     showResult(prizes[winningPrizeIndex].value);
     updateInventoryUI();
     checkSpinButton();
-  }, 3525);
+  }, 4150);
 }
 
 function runConfetti() {
