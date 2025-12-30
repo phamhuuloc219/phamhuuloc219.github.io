@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Translate - Pham Huu Loc</title>
+     <meta name="description" content="Pham Huu Loc - .NET Developer" />
+    <meta name="keywords" content="Pham Huu Loc, PHL, .NET, ASP.NET" />
+    <meta name="author" content="Pham Huu Loc" />
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/phamhuuloc219/phamhuuloc219.github.io/refs/heads/main/images/phl.png" />
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/phamhuuloc219/phamhuuloc219.github.io/refs/heads/main/images/phl.png" />
+
+    <meta name="theme-color" content="#d32f2f" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Pham Huu Loc" />
+    <meta property="og:description" content="Pham Huu Loc" />
+    <meta
+      property="og:image"
+      content="https://raw.githubusercontent.com/phamhuuloc219/phamhuuloc219.github.io/refs/heads/main/images/phl.png"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "tet-red": "#d32f2f",
+              "tet-yellow": "#fbc02d",
+              "tet-bg": "#ffebee",
+            },
+            fontFamily: { sans: ["Segoe UI", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+    
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-tet-bg min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-6xl rounded-xl shadow-xl overflow-hidden border border-red-100">
+      
+      <div class="bg-tet-red p-4 text-tet-yellow text-center shadow-md">
+        <h1 class="text-2xl font-bold uppercase tracking-wider">
+          <i class="fas fa-language mr-2"></i>Translate
+        </h1>
+      </div>
+
+      <div class="p-6 space-y-6">
+        <div class="flex flex-col md:flex-row gap-4 justify-between items-end md:items-center">
+          <div class="w-full">
+            <label class="block text-sm font-bold text-tet-red mb-1">Translate from</label>
+            <select
+              id="sourceLang"
+              class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-tet-red focus:border-tet-red outline-none font-medium"
+            >
+              <option value="en" selected>English</option>
+              <option value="vi">Vietnamese</option>
+              <option value="ko">Korean</option>
+              <option value="zh">Chinese</option>
+            </select>
+          </div>
+
+          <div id="btnSwap" class="text-tet-red cursor-pointer p-2 rounded-full hover:bg-red-50 hover:scale-110 transition-all duration-200"
+            title="Hoán đổi ngôn ngữ">
+            <svg class="fill-current" width="24" height="24" viewBox="0 0 0.48 0.48" xmlns="http://www.w3.org/2000/svg">
+                <path d="m.302.21.03.03.103-.103L.33.03.3.06l.054.054H.06v.042h.295ZM.176.27.146.24.043.345.147.45l.03-.03L.123.366H.42V.324H.123Z"/>
+            </svg>
+          </div>
+
+          <div class="w-full">
+            <label class="block text-sm font-bold text-tet-red mb-1">Translation to</label>
+            <select
+              id="targetLang"
+              class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-tet-red focus:border-tet-red outline-none font-medium"
+            >
+              <option value="en">English</option>
+              <option value="vi" selected>Vietnamese</option>
+              <option value="ko">Korean</option>
+              <option value="zh">Chinese</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <div class="relative">
+            <textarea
+              id="inputText"
+              rows="5"
+              class="w-full p-3 pr-10 pb-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tet-red focus:border-tet-red outline-none resize-none"
+              placeholder="Enter text to translate..."
+            ></textarea>
+
+            <button
+              id="btnClear"
+              class="absolute top-2 right-2 text-gray-400 hover:text-tet-red p-1 rounded-full hover:bg-red-50 transition"
+              title="Clear all"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+
+            <div
+              id="charCount"
+              class="absolute bottom-2 right-3 text-xs text-gray-400 font-medium"
+            >
+              0/500
+            </div>
+          </div>
+
+          <div class="relative">
+            <textarea
+              id="outputText"
+              rows="5"
+              readonly
+              class="w-full p-3 pr-10 bg-gray-50 border border-gray-300 rounded-lg text-gray-700 resize-none focus:border-tet-yellow"
+              placeholder="Translation"
+            ></textarea>
+
+            <button
+              id="btnCopy"
+              class="absolute top-2 right-2 text-gray-400 hover:text-tet-red p-1 rounded-full hover:bg-red-50 transition"
+              title="Copy results"
+            >
+              <i class="fas fa-copy"></i>
+            </button>
+
+            <div
+              id="loading"
+              class="hidden absolute inset-0 bg-white/80 flex items-center justify-center rounded-lg z-10"
+            >
+              <div
+                class="animate-spin rounded-full h-8 w-8 border-b-2 border-tet-red"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <button
+          id="btnTranslate"
+          class="w-full bg-tet-red hover:bg-red-700 text-tet-yellow font-bold py-3 px-4 rounded-lg transition duration-200 shadow-md uppercase tracking-wide border-b-4 border-red-800 active:border-b-0 active:mt-1"
+        >
+          Translate now
+        </button>
+      </div>
+    </div>
+
+    <div id="errorModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-lg shadow-2xl w-11/12 max-w-md transform transition-all scale-100">
+            <div class="flex items-center justify-between p-4 border-b border-gray-200">
+                <h3 class="text-lg font-bold text-red-600 flex items-center">Notification</h3>
+                <button id="closeModalIcon" class="text-gray-400 hover:text-gray-600 focus:outline-none">X</button>
+            </div>
+            <div class="p-6"><p id="errorMessage" class="text-gray-700 text-sm font-mono bg-red-50 p-3 rounded border border-red-100 whitespace-pre-wrap break-words"></p></div>
+            <div class="p-4 border-t border-gray-200 text-right"><button id="closeModalBtn" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded font-semibold transition">Close</button></div>
+        </div>
+    </div>
+
+    <script src="../layout.js"></script>
+    
+    <script>
+        const btnTranslate = document.getElementById("btnTranslate");
+        const btnSwap = document.getElementById("btnSwap");
+        const inputText = document.getElementById("inputText");
+        const outputText = document.getElementById("outputText");
+        const sourceLang = document.getElementById("sourceLang");
+        const targetLang = document.getElementById("targetLang");
+        const loading = document.getElementById("loading");
+        const charCount = document.getElementById("charCount");
+        const btnClear = document.getElementById("btnClear");
+        const btnCopy = document.getElementById("btnCopy");
+        const MAX_CHARS = 500;
+
+                inputText.addEventListener("input", () => {
+            const currentLength = inputText.value.length;
+            charCount.innerText = `${currentLength}/${MAX_CHARS}`;
+
+            if (currentLength > MAX_CHARS) {
+                charCount.classList.remove("text-gray-400");
+                charCount.classList.add("text-tet-red", "font-bold");
+                inputText.classList.add("border-tet-red", "focus:ring-red-500");
+                inputText.classList.remove("border-gray-300", "focus:ring-tet-red");
+
+                btnTranslate.disabled = true;
+                btnTranslate.classList.add("opacity-50", "cursor-not-allowed");
+                btnTranslate.innerHTML = '<span>Quá dài!</span> <i class="fas fa-exclamation-circle"></i>';
+            } else {
+                charCount.classList.add("text-gray-400");
+                charCount.classList.remove("text-tet-red", "font-bold");
+                inputText.classList.remove("border-tet-red", "focus:ring-red-500");
+                inputText.classList.add("border-gray-300", "focus:ring-tet-red");
+
+                btnTranslate.disabled = false;
+                btnTranslate.classList.remove("opacity-50", "cursor-not-allowed");
+                btnTranslate.innerHTML = '<span>Translate now</span>';
+            }
+        });
+
+        btnClear.addEventListener("click", () => {
+            inputText.value = "";
+            outputText.value = "";
+            charCount.innerText = `0/${MAX_CHARS}`;
+            
+            charCount.classList.add("text-gray-400");
+            charCount.classList.remove("text-tet-red", "font-bold");
+            inputText.classList.remove("border-tet-red", "focus:ring-red-500");
+            inputText.classList.add("border-gray-300", "focus:ring-tet-red");
+            btnTranslate.disabled = false;
+            btnTranslate.classList.remove("opacity-50", "cursor-not-allowed");
+            btnTranslate.innerHTML = '<span>Translate now</span>';
+            inputText.focus();
+        });
+
+        btnCopy.addEventListener('click', () => {
+            const textToCopy = outputText.value;
+            if (!textToCopy) return;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const icon = btnCopy.querySelector('i');
+                icon.className = "fas fa-check text-green-600";
+                setTimeout(() => { icon.className = "fas fa-copy"; }, 2000);
+            });
+        });
+
+        btnSwap.addEventListener("click", () => {
+            const svgIcon = btnSwap.querySelector("svg");
+            if(svgIcon) {
+                svgIcon.classList.add("rotate-180", "transition-transform", "duration-300");
+                setTimeout(() => svgIcon.classList.remove("rotate-180"), 300);
+            }
+
+            const tempLang = sourceLang.value;
+            sourceLang.value = targetLang.value;
+            targetLang.value = tempLang;
+
+            if (outputText.value && outputText.value !== "Error: Unable to translate.") {
+                inputText.value = outputText.value;
+                outputText.value = "";
+                inputText.dispatchEvent(new Event('input'));
+            }
+        });
+
+        btnTranslate.addEventListener("click", () => {
+            const text = inputText.value.trim();
+            const source = sourceLang.value;
+            const target = targetLang.value;
+
+            if (source === target) {
+                showError("The source and target languages are not the same!");
+                return;
+            }
+
+            if (!text) {
+                showError("Please enter the text to be translated!");
+                inputText.focus();
+                return;
+            }
+
+            loading.classList.remove("hidden");
+            outputText.value = "";
+
+            const apiUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${source}|${target}`;
+
+            fetch(apiUrl)
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.responseData) {
+                        outputText.value = data.responseData.translatedText;
+                    } else {
+                        outputText.value = "Error: Unable to translate.";
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    outputText.value = "Error connecting to server."; 
+                })
+                .finally(() => {
+                    loading.classList.add("hidden");
+                });
+        });
+    </script>
+  </body>
+</html>

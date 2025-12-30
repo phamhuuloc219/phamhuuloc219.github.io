@@ -32,7 +32,11 @@ const headerHTML = `
                 <svg fill="#000000" width="18px" height="18px" viewBox="0 0 0.54 0.54" xmlns="http://www.w3.org/2000/svg"><path d="M0.067 0.27h0.135A0.026 0.026 0 0 0 0.225 0.248V0.113A0.026 0.026 0 0 0 0.203 0.09H0.067a0.026 0.026 0 0 0 -0.022 0.023v0.135a0.026 0.026 0 0 0 0.023 0.023M0.09 0.135h0.09v0.09H0.09ZM0.293 0.18h0.18a0.023 0.023 0 0 0 0 -0.045h-0.18a0.023 0.023 0 0 0 0 0.045m0 0.225H0.068a0.023 0.023 0 0 0 0 0.045h0.225a0.023 0.023 0 0 0 0 -0.045m0.179 -0.09H0.067a0.023 0.023 0 0 0 0 0.045h0.405a0.023 0.023 0 0 0 0 -0.045m0 -0.09H0.293a0.023 0.023 0 0 0 0 0.045h0.18a0.023 0.023 0 0 0 0 -0.045"/></svg>
                 Remove Code Comments
               </a>
-              </div>
+              <a href="/translate" class="flex items-center gap-2 px-4 py-2 text-slate-700 hover:bg-red-50 hover:text-tet-red transition">
+                <svg fill="#000000" width="18px" height="18px" viewBox="0 0 0.54 0.54" xmlns="http://www.w3.org/2000/svg"><path d="M0.067 0.27h0.135A0.026 0.026 0 0 0 0.225 0.248V0.113A0.026 0.026 0 0 0 0.203 0.09H0.067a0.026 0.026 0 0 0 -0.022 0.023v0.135a0.026 0.026 0 0 0 0.023 0.023M0.09 0.135h0.09v0.09H0.09ZM0.293 0.18h0.18a0.023 0.023 0 0 0 0 -0.045h-0.18a0.023 0.023 0 0 0 0 0.045m0 0.225H0.068a0.023 0.023 0 0 0 0 0.045h0.225a0.023 0.023 0 0 0 0 -0.045m0.179 -0.09H0.067a0.023 0.023 0 0 0 0 0.045h0.405a0.023 0.023 0 0 0 0 -0.045m0 -0.09H0.293a0.023 0.023 0 0 0 0 0.045h0.18a0.023 0.023 0 0 0 0 -0.045"/></svg>
+                Translate
+              </a>
+            </div>
           </div>
         </div>
       </nav>
@@ -62,7 +66,10 @@ const headerHTML = `
             <a href="/remove-code-comments" class="flex items-center gap-2 py-2 text-sm text-slate-600 hover:text-tet-red transition">
               Remove Code Comments
             </a>
-            </div>
+            <a href="/translate" class="flex items-center gap-2 py-2 text-sm text-slate-600 hover:text-tet-red transition">
+              Translate
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -71,7 +78,7 @@ const headerHTML = `
 
 const footerHTML = `
   <footer class="max-w-5xl mx-auto px-6 py-8 text-center text-sm text-slate-500 w-full">
-    © <span id="year"></span> Designed by <a href="https://phamhuuloc219.github.io" target="_blank" class="font-bold hover:text-white transition-colors underline decoration-sky-400 underline-offset-2">PHL</a>.
+    © <span id="year"></span> Designed and developed by <a href="https://phamhuuloc219.github.io" target="_blank" class="font-bold hover:text-white transition-colors underline decoration-sky-400 underline-offset-2">Pham Huu Loc</a>.
   </footer>
 `;
 
