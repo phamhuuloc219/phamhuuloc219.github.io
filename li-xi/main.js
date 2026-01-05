@@ -1,4 +1,8 @@
 // --- CONFIG LOGIC ---
+const FAIR_MODE_PASS = "8888";
+let isFairMode = false;
+let spinHistory = [];
+
 const difficultyWeights = {
   0: 100, 1: 100, 2: 100, 3: 20, 4: 10, 5: 1,
 };
@@ -23,10 +27,13 @@ window.onload = function() {
   if (savedData) {
     const parsedData = JSON.parse(savedData);
     prizes = parsedData.prizes;
+    spinHistory = parsedData.history || [];
+    
     rebuildPoolFromPrizes();
     updateInventoryUI();
+    renderHistoryUI();
     checkSpinButton();
-  } else {
+  }else {
     document.getElementById('setup-modal').style.display = 'flex';
   }
   
@@ -47,7 +54,7 @@ function submitSetup() {
     });
 
     if (availablePool.length === 0) {
-        alert("Vui lòng nhập ít nhất 1 tờ tiền!");
+        showNotify("Vui lòng nhập ít nhất 1 tờ tiền!");
         return;
     }
     saveData();
@@ -74,7 +81,10 @@ function rebuildPoolFromPrizes() {
 }
 
 function saveData() {
-    const dataToSave = { prizes: prizes };
+    const dataToSave = { 
+        prizes: prizes,
+        history: spinHistory
+    };
     localStorage.setItem('lixi_data', JSON.stringify(dataToSave));
 }
 
@@ -106,6 +116,11 @@ function toggleMenu() {
 }
 
 function getWeightedRandomIndex() {
+  if (isFairMode) {
+      console.log("Nhân phẩm");
+      return Math.floor(Math.random() * availablePool.length);
+  }
+
   let totalWeight = 0;
   availablePool.forEach((prizeIndex) => totalWeight += difficultyWeights[prizeIndex]);
   let randomValue = Math.random() * totalWeight;
@@ -121,7 +136,7 @@ function getWeightedRandomIndex() {
 function spinWheel() {
   if (isSpinning) return;
   if (availablePool.length === 0) {
-    alert("Đã hết tiền lì xì!");
+    showNotify("Hết tiền rồi!");
     checkSpinButton();
     return;
   }
@@ -136,7 +151,9 @@ function spinWheel() {
 
   availablePool.splice(poolIndex, 1);
   prizes[winningPrizeIndex].quantity--;
-  saveData(); 
+  addToHistory(prizes[winningPrizeIndex].value);
+
+  saveData();
 
   const segmentAngle = 360 / prizes.length;
   const targetAngleInWheel = winningPrizeIndex * segmentAngle + segmentAngle / 2;
@@ -232,4 +249,100 @@ function applySoundSettings() {
         btn.classList.remove('text-tet-red');
     }
     localStorage.setItem('lixi_sound', isSoundOn);
+}
+
+// --- HISTORY ---
+
+function addToHistory(value) {
+    const now = new Date();
+    const timeString = now.getHours() + ":" + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
+    spinHistory.unshift({ value: value, time: timeString });
+    renderHistoryUI();
+}
+
+function renderHistoryUI() {
+    const container = document.getElementById('history-list');
+    if (!container) return;
+    if (spinHistory.length === 0) {
+        container.innerHTML = '<p class="text-center text-gray-400 italic text-xs">Chưa có lượt quay</p>';
+        return;
+    }
+    let html = '';
+    spinHistory.forEach(item => {
+        let colorClass = 'text-gray-700';
+        if(item.value.includes('500k') || item.value.includes('200k')) colorClass = 'text-red-600 font-bold';
+        html += `
+            <div class="flex justify-between items-center bg-gray-50 p-2 rounded border border-gray-100">
+                <span class="text-xs text-gray-500 font-mono">${item.time}</span>
+                <span class="${colorClass}">${item.value}</span>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+}
+
+function clearHistory() {
+    if(confirm("Xóa lịch sử?")) {
+        spinHistory = [];
+        saveData();
+        renderHistoryUI();
+    }
+}
+
+// Secret Checkbox
+function handleSecretTrigger() {
+    const checkbox = document.getElementById('fair-mode-trigger');
+    if (checkbox.checked) {
+        document.getElementById('secret-modal').style.display = 'flex';
+        document.getElementById('secret-input').value = '';
+        document.getElementById('secret-input').focus();
+    } else {
+        isFairMode = false;
+    }
+}
+
+function closeSecretModal() {
+    document.getElementById('secret-modal').style.display = 'none';
+    if (!isFairMode) document.getElementById('fair-mode-trigger').checked = false;
+}
+
+function confirmSecretPass() {
+    const input = document.getElementById('secret-input').value;
+    if (input === FAIR_MODE_PASS) {
+        isFairMode = true;
+        document.getElementById('secret-modal').style.display = 'none';
+    } else {
+        showNotify("Sai mật khẩu!");
+        document.getElementById('secret-input').value = '';
+    }
+}
+
+// --- LOGIC MODAL NOTIFICATION ---
+const errorModal = document.getElementById('errorModal');
+const errorMessage = document.getElementById('errorMessage');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const closeModalIcon = document.getElementById('closeModalIcon');
+
+function showNotify(msg) {
+    if (errorMessage) errorMessage.textContent = msg;
+    if (errorModal) {
+        errorModal.classList.remove('hidden');
+        errorModal.firstElementChild.classList.remove('scale-95', 'opacity-0');
+        errorModal.firstElementChild.classList.add('scale-100', 'opacity-100');
+    }
+}
+
+function hideError() {
+    if (errorModal) {
+        errorModal.classList.add('hidden');
+    }
+}
+
+if (closeModalBtn) closeModalBtn.addEventListener('click', hideError);
+if (closeModalIcon) closeModalIcon.addEventListener('click', hideError);
+
+if (errorModal) {
+    errorModal.addEventListener('click', (e) => {
+        if (e.target === errorModal) hideError();
+    });
 }
